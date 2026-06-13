@@ -153,6 +153,7 @@
     </a>
     <div class="nav-links">
       <a href="#drop">Drop 001</a>
+      <a href="#tee">Tee</a>
       <a href="#sizing">Sizing</a>
       <a href="#story">Story</a>
     </div>
@@ -182,7 +183,7 @@
   <h1 class="hero-motto">Be the athlete.</h1>
   <p class="hero-sub">Limited performance wear. When it sells out, the countdown begins again.</p>
 
-  <form class="notify" id="notify" aria-label="Get notified when stock drops">
+  <form class="notify" id="notify" aria-label="Get notified when stock drops" action="https://formspree.io/f/xykabywn" method="POST">
     <label class="sr-only" for="email">Email address</label>
     <input type="email" id="email" name="email" placeholder="your@email.com" required>
     <button type="submit">Notify me</button>
@@ -262,6 +263,64 @@
         <p class="price-tier">Adult +</p>
         <p class="price-num">$79.99</p>
         <p class="price-sizes">XXL – 3XL &nbsp;(6'1" – 6'5")</p>
+        <a href="#notify">Notify me</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE TEE ============ -->
+<section class="sizes" id="tee">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="section-eyebrow">Also in Drop 001</p>
+      <h2 class="section-title">The Tee — Pure White</h2>
+    </div>
+
+    <div style="text-align:center" class="reveal">
+      <span class="units">Drops with Restock 001</span>
+    </div>
+
+    <p class="product-desc reveal" style="margin-top:28px">Heavyweight combed-cotton tee. Navy emblem on the left chest. ATHLON across the back. Pre-shrunk, cut slim athletic — built to move.</p>
+
+    <div class="jackets reveal">
+      <!-- FRONT -->
+      <figure class="jacket-card">
+        <svg viewBox="0 0 340 480" role="img" aria-label="Front of the white ATHLON tee with navy left-chest emblem">
+          <path d="M126,70 L96,58 L44,90 L66,156 L96,143 L96,442 L244,442 L244,143 L274,156 L296,90 L244,58 L214,70 Q170,96 126,70 Z" fill="#FBFCFD" stroke="#DDE3EB" stroke-width="1.5"/>
+          <path d="M96,58 L44,90 L66,156 L96,143 Z" fill="#F3F6F9" stroke="#DDE3EB" stroke-width="1"/>
+          <path d="M244,58 L296,90 L274,156 L244,143 Z" fill="#F3F6F9" stroke="#DDE3EB" stroke-width="1"/>
+          <path d="M126,70 Q170,96 214,70 Q170,86 126,70 Z" fill="#EFF3F7" stroke="#DDE3EB" stroke-width="1"/>
+          <line x1="96" y1="418" x2="244" y2="418" stroke="#E6EBF1" stroke-width="0.8"/>
+          <g transform="translate(122,128) scale(0.95)">
+            <path d="M24,8 L38,38 L24,30 L10,38 Z" fill="#0A1628"/>
+            <path d="M24,16 L33,35 L24,29 L15,35 Z" fill="#FBFCFD"/>
+          </g>
+        </svg>
+        <figcaption>Front — chest emblem</figcaption>
+      </figure>
+
+      <!-- BACK -->
+      <figure class="jacket-card">
+        <svg viewBox="0 0 340 480" role="img" aria-label="Back of the white ATHLON tee with ATHLON wordmark and motto">
+          <path d="M126,70 L96,58 L44,90 L66,156 L96,143 L96,442 L244,442 L244,143 L274,156 L296,90 L244,58 L214,70 Q170,92 126,70 Z" fill="#FBFCFD" stroke="#DDE3EB" stroke-width="1.5"/>
+          <path d="M96,58 L44,90 L66,156 L96,143 Z" fill="#F3F6F9" stroke="#DDE3EB" stroke-width="1"/>
+          <path d="M244,58 L296,90 L274,156 L244,143 Z" fill="#F3F6F9" stroke="#DDE3EB" stroke-width="1"/>
+          <path d="M126,70 Q170,84 214,70 L214,80 Q170,94 126,80 Z" fill="#EFF3F7" stroke="#DDE3EB" stroke-width="1"/>
+          <text x="170" y="250" text-anchor="middle" font-family="'Bebas Neue',sans-serif" font-size="46" letter-spacing="12" fill="#0A1628">ATHLON</text>
+          <line x1="92" y1="265" x2="248" y2="265" stroke="#0A1628" stroke-width="1.5"/>
+          <text x="170" y="291" text-anchor="middle" font-family="'Manrope',sans-serif" font-size="12" letter-spacing="5" font-weight="600" fill="#1E3A5F">BE THE ATHLETE.</text>
+        </svg>
+        <figcaption>Back — wordmark &amp; motto</figcaption>
+      </figure>
+    </div>
+
+    <div class="prices reveal" style="max-width:280px">
+      <div class="price-card core">
+        <span class="core-pill">The Tee</span>
+        <p class="price-tier">Adult</p>
+        <p class="price-num">$45.00</p>
+        <p class="price-sizes">XS – 3XL</p>
         <a href="#notify">Notify me</a>
       </div>
     </div>
@@ -373,14 +432,35 @@
   tick();
 
   /* ---------- notify form ----------
-     This currently shows a confirmation message only.
-     To collect real emails, connect a free service like
-     Formspree or Mailchimp and post the email there.   */
-  document.getElementById('notify').addEventListener('submit', function(e){
+     Submits the email to Formspree in the background (no page redirect),
+     then shows the confirmation message. Emails land in your Formspree
+     inbox and at imanakoi07@gmail.com.                                */
+  document.getElementById('notify').addEventListener('submit', async function(e){
     e.preventDefault();
+    const form = this;
     const email = document.getElementById('email').value.trim();
     if (!email.includes('@')) return;
-    this.innerHTML = '<p class="notify-done">You\'re on the list. We\'ll alert you before the restock opens.</p>';
+    const btn = form.querySelector('button');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      });
+      if (res.ok) {
+        form.innerHTML = '<p class="notify-done">You\'re on the list. We\'ll alert you before the restock opens.</p>';
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Notify me';
+        alert('Something went wrong — please try again in a moment.');
+      }
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'Notify me';
+      alert('Network error — please check your connection and try again.');
+    }
   });
 
   /* ---------- scroll reveal ---------- */
